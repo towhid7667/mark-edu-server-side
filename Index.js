@@ -1,11 +1,38 @@
-const express = require('express')
-const app = express()
-const port = 5000
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const port = process.env.PORT || 5000;
+app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const categories = require("./data/Categories.json");
+const courses = require("./data/Courses.json");
+
+app.get("/", (req, res) => {
+  res.send("Course API Running...");
+});
+
+app.get("/course-categories", (req, res) => {
+  res.send(categories);
+});
+
+app.get("/courses", (req, res) => {
+  res.send(courses);
+});
+
+
+app.get("/category/:id", (req, res) => {
+  const id = req.params.id;
+    const category_courses = courses.filter((n) => n.category_id === id);
+    res.send(category_courses);
+
+});
+
+app.get("/courses/:id", (req, res) => {
+  const id = req.params.id;
+  const allCourses = courses.find((n) => n.id === id);
+  res.send(allCourses);
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log("The running Port", port);
+});
