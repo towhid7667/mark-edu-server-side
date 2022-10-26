@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 app.get("/course-categories", (req, res) => {
   res.send(categories);
 });
-
+// All courses here
 app.get("/courses", (req, res) => {
   res.send(courses);
 });
